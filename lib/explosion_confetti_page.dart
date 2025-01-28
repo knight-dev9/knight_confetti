@@ -4,12 +4,16 @@ class ExplosionConfettiPage extends StatefulWidget {
   final Duration duration;
   final int totalParticles;
   final List<Color> colors;
+  final List<Offset>? positions;
+  final Duration delay;
 
   const ExplosionConfettiPage({
     super.key,
     this.duration = const Duration(seconds: 2),
     this.totalParticles = 100,
     this.colors = Colors.primaries,
+    this.positions,
+    this.delay = const Duration(seconds: 2),
   });
 
   @override
@@ -31,12 +35,22 @@ class _ExplosionConfettiPageState extends State<ExplosionConfettiPage>
       duration: widget.duration,
       vsync: this,
     )..addListener(() {
-        setState(() {
-          for (var particle in _particles) {
-            particle.update();
-          }
-        });
+      setState(() {
+        for (var particle in _particles) {
+          particle.update();
+        }
       });
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (widget.positions != null && widget.positions!.isNotEmpty) {
+        for (int i = 0; i < widget.positions!.length; i++) {
+          final position = widget.positions![i];
+          _generateParticles(position);
+          await Future.delayed(widget.delay);
+        }
+      }
+    });
   }
 
   void _generateParticles(Offset position) {
@@ -44,6 +58,7 @@ class _ExplosionConfettiPageState extends State<ExplosionConfettiPage>
     for (int i = 0; i < widget.totalParticles; i++) {
       _particles.add(ExplosionParticle(position, widget.colors));
     }
+    _controller.forward(from: 0);
   }
 
   @override
@@ -55,9 +70,9 @@ class _ExplosionConfettiPageState extends State<ExplosionConfettiPage>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      behavior: HitTestBehavior.translucent,
       onTapUp: (details) {
         _generateParticles(details.localPosition);
-        _controller.forward(from: 0);
       },
       child: CustomPaint(
         painter: ParticlePainter(_particles),

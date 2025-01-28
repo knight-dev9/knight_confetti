@@ -1,13 +1,12 @@
 part of 'knight_confetti.dart';
 
 class WidgetConfettiPage extends StatefulWidget {
-  final Duration duration;
+  final Duration duration = const Duration(seconds: 5);
   final int totalParticles;
   final List<Widget> children;
 
   const WidgetConfettiPage({
     super.key,
-    this.duration = const Duration(seconds: 5),
     this.totalParticles = 60,
     required this.children,
   });
@@ -30,12 +29,12 @@ class _WidgetConfettiPageState extends State<WidgetConfettiPage>
       duration: widget.duration,
       vsync: this,
     )..addListener(() {
-        setState(() {
-          for (var particle in _particles) {
-            particle.update();
-          }
-        });
+      setState(() {
+        for (var particle in _particles) {
+          particle.update();
+        }
       });
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // Initialize particles after screen dimensions are known
@@ -57,7 +56,7 @@ class _WidgetConfettiPageState extends State<WidgetConfettiPage>
 
   Iterable<Widget> _buildParticles() {
     return _particles.map(
-      (e) {
+          (e) {
         return AnimatedBuilder(
           animation: _controller,
           builder: (context, child) {

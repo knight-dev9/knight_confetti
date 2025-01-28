@@ -1,13 +1,12 @@
 part of 'knight_confetti.dart';
 
 class SnowConfettiPage extends StatefulWidget {
-  final Duration duration;
+  final Duration duration = const Duration(seconds: 10);
   final int totalParticles;
   final Color color;
 
   const SnowConfettiPage({
     super.key,
-    this.duration = const Duration(seconds: 10),
     this.totalParticles = 150,
     this.color = Colors.white,
   });
@@ -31,12 +30,12 @@ class _SnowConfettiPageState extends State<SnowConfettiPage>
       duration: widget.duration,
       vsync: this,
     )..addListener(() {
-        setState(() {
-          for (var particle in _particles) {
-            particle.update();
-          }
-        });
+      setState(() {
+        for (var particle in _particles) {
+          particle.update();
+        }
       });
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final screenSize = MediaQuery.of(context).size;
