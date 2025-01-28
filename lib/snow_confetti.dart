@@ -1,11 +1,11 @@
 part of 'knight_confetti.dart';
 
-class SnowConfettiPage extends StatefulWidget {
+class SnowConfetti extends StatefulWidget {
   final Duration duration = const Duration(seconds: 10);
   final int totalParticles;
   final Color color;
 
-  const SnowConfettiPage({
+  const SnowConfetti({
     super.key,
     this.totalParticles = 150,
     this.color = Colors.white,
@@ -13,11 +13,11 @@ class SnowConfettiPage extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _SnowConfettiPageState();
+    return _SnowConfettiState();
   }
 }
 
-class _SnowConfettiPageState extends State<SnowConfettiPage>
+class _SnowConfettiState extends State<SnowConfetti>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   final List<Particle> _particles = [];
@@ -30,12 +30,12 @@ class _SnowConfettiPageState extends State<SnowConfettiPage>
       duration: widget.duration,
       vsync: this,
     )..addListener(() {
-      setState(() {
-        for (var particle in _particles) {
-          particle.update();
-        }
+        setState(() {
+          for (var particle in _particles) {
+            particle.update();
+          }
+        });
       });
-    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final screenSize = MediaQuery.of(context).size;

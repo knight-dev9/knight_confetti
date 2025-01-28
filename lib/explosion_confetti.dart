@@ -1,14 +1,15 @@
 part of 'knight_confetti.dart';
 
-class FireworksConfettiPage extends StatefulWidget {
-  final Duration duration = const Duration(seconds: 4);
+class ExplosionConfetti extends StatefulWidget {
+  final Duration duration;
   final int totalParticles;
   final List<Color> colors;
   final List<Offset>? positions;
   final Duration delay;
 
-  const FireworksConfettiPage({
+  const ExplosionConfetti({
     super.key,
+    this.duration = const Duration(seconds: 2),
     this.totalParticles = 100,
     this.colors = Colors.primaries,
     this.positions,
@@ -17,11 +18,11 @@ class FireworksConfettiPage extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _FireworksConfettiPageState();
+    return _ExplosionConfettiState();
   }
 }
 
-class _FireworksConfettiPageState extends State<FireworksConfettiPage>
+class _ExplosionConfettiState extends State<ExplosionConfetti>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   final List<Particle> _particles = [];
@@ -35,24 +36,29 @@ class _FireworksConfettiPageState extends State<FireworksConfettiPage>
       vsync: this,
     )..addListener(() {
       setState(() {
-        for (var firework in _particles) {
-          firework.update();
+        for (var particle in _particles) {
+          particle.update();
         }
       });
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      _particles.clear();
-      final screenSize = MediaQuery.sizeOf(context);
       if (widget.positions != null && widget.positions!.isNotEmpty) {
         for (int i = 0; i < widget.positions!.length; i++) {
           final position = widget.positions![i];
-          _particles.add(FireworkParticle(widget.colors, position, screenSize));
+          _generateParticles(position);
           await Future.delayed(widget.delay);
         }
       }
     });
-    _controller.repeat();
+  }
+
+  void _generateParticles(Offset position) {
+    _particles.clear();
+    for (int i = 0; i < widget.totalParticles; i++) {
+      _particles.add(ExplosionParticle(position, widget.colors));
+    }
+    _controller.forward(from: 0);
   }
 
   @override
@@ -64,15 +70,9 @@ class _FireworksConfettiPageState extends State<FireworksConfettiPage>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      behavior: HitTestBehavior.translucent,
       onTapUp: (details) {
-        // Add a new firework at a random position
-        _particles.add(
-          FireworkParticle(
-            widget.colors,
-            details.localPosition,
-            MediaQuery.sizeOf(context),
-          ),
-        );
+        _generateParticles(details.localPosition);
       },
       child: CustomPaint(
         painter: ParticlePainter(_particles),

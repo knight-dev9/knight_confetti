@@ -1,11 +1,11 @@
 part of 'knight_confetti.dart';
 
-class FloatingConfettiPage extends StatefulWidget {
+class FloatingConfetti extends StatefulWidget {
   final Duration duration = const Duration(seconds: 10);
   final int totalParticles;
   final List<Color> colors;
 
-  const FloatingConfettiPage({
+  const FloatingConfetti({
     super.key,
     this.totalParticles = 100,
     this.colors = Colors.primaries,
@@ -13,11 +13,11 @@ class FloatingConfettiPage extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _FloatingConfettiPageState();
+    return _FloatingConfettiState();
   }
 }
 
-class _FloatingConfettiPageState extends State<FloatingConfettiPage>
+class _FloatingConfettiState extends State<FloatingConfetti>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   final List<Particle> _particles = [];
@@ -30,12 +30,12 @@ class _FloatingConfettiPageState extends State<FloatingConfettiPage>
       duration: widget.duration,
       vsync: this,
     )..addListener(() {
-      setState(() {
-        for (var particle in _particles) {
-          particle.update();
-        }
+        setState(() {
+          for (var particle in _particles) {
+            particle.update();
+          }
+        });
       });
-    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final screenSize = MediaQuery.sizeOf(context);
@@ -59,4 +59,3 @@ class _FloatingConfettiPageState extends State<FloatingConfettiPage>
     );
   }
 }
-

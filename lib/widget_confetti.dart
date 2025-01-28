@@ -1,11 +1,11 @@
 part of 'knight_confetti.dart';
 
-class WidgetConfettiPage extends StatefulWidget {
+class WidgetConfetti extends StatefulWidget {
   final Duration duration = const Duration(seconds: 5);
   final int totalParticles;
   final List<Widget> children;
 
-  const WidgetConfettiPage({
+  const WidgetConfetti({
     super.key,
     this.totalParticles = 60,
     required this.children,
@@ -13,11 +13,11 @@ class WidgetConfettiPage extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _WidgetConfettiPageState();
+    return _WidgetConfettiState();
   }
 }
 
-class _WidgetConfettiPageState extends State<WidgetConfettiPage>
+class _WidgetConfettiState extends State<WidgetConfetti>
     with TickerProviderStateMixin {
   late AnimationController _controller;
   final List<Particle> _particles = [];
@@ -29,12 +29,12 @@ class _WidgetConfettiPageState extends State<WidgetConfettiPage>
       duration: widget.duration,
       vsync: this,
     )..addListener(() {
-      setState(() {
-        for (var particle in _particles) {
-          particle.update();
-        }
+        setState(() {
+          for (var particle in _particles) {
+            particle.update();
+          }
+        });
       });
-    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // Initialize particles after screen dimensions are known
@@ -56,7 +56,7 @@ class _WidgetConfettiPageState extends State<WidgetConfettiPage>
 
   Iterable<Widget> _buildParticles() {
     return _particles.map(
-          (e) {
+      (e) {
         return AnimatedBuilder(
           animation: _controller,
           builder: (context, child) {
