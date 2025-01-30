@@ -22,6 +22,10 @@ class _WidgetConfettiState extends State<WidgetConfetti>
   late AnimationController _controller;
   final List<Particle> _particles = [];
 
+  Size get screenSize {
+    return MediaQuery.sizeOf(context);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -38,12 +42,10 @@ class _WidgetConfettiState extends State<WidgetConfetti>
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // Initialize particles after screen dimensions are known
-      final screenSize = MediaQuery.sizeOf(context);
       for (int i = 0; i < widget.totalParticles; i++) {
         // Increase particle count for density
         _particles.add(WidgetParticle(screenSize, widget.children));
       }
-
       _controller.repeat();
     });
   }

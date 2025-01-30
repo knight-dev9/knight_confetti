@@ -22,6 +22,10 @@ class _RainConfettiState extends State<RainConfetti>
   late AnimationController _controller;
   final List<Particle> _particles = [];
 
+  Size get screenSize {
+    return MediaQuery.sizeOf(context);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -39,13 +43,10 @@ class _RainConfettiState extends State<RainConfetti>
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // Initialize particles after screen dimensions are known
-      final screenSize = MediaQuery.sizeOf(context);
-
       for (int i = 0; i < widget.totalParticles; i++) {
         // Increase particle count for density
         _particles.add(RainParticle(widget.color, screenSize));
       }
-
       _controller.repeat();
     });
   }

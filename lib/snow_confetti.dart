@@ -22,6 +22,10 @@ class _SnowConfettiState extends State<SnowConfetti>
   late AnimationController _controller;
   final List<Particle> _particles = [];
 
+  Size get screenSize {
+    return MediaQuery.sizeOf(context);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -38,14 +42,11 @@ class _SnowConfettiState extends State<SnowConfetti>
       });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final screenSize = MediaQuery.of(context).size;
-
       // Generate particles after layout is complete
       for (int i = 0; i < widget.totalParticles; i++) {
         // Increase for denser snowfall
         _particles.add(SnowParticle(widget.color, screenSize));
       }
-
       _controller.repeat();
     });
   }

@@ -35,12 +35,12 @@ class _ExplosionConfettiState extends State<ExplosionConfetti>
       duration: widget.duration,
       vsync: this,
     )..addListener(() {
-      setState(() {
-        for (var particle in _particles) {
-          particle.update();
-        }
+        setState(() {
+          for (var particle in _particles) {
+            particle.update();
+          }
+        });
       });
-    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (widget.positions != null && widget.positions!.isNotEmpty) {

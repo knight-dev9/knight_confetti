@@ -316,3 +316,69 @@ class WidgetParticle extends Particle {
     }
   }
 }
+
+@protected
+class WindParticle extends Particle {
+  final Size screenSize;
+  final bool isStrongWind;
+  late double x, y;
+  late double speedX, speedY;
+  late double size;
+  late double opacity;
+
+  WindParticle(this.screenSize, {this.isStrongWind = false}) {
+    reset();
+  }
+
+  void reset() {
+    final random = Random();
+    x = random.nextDouble() * screenSize.width;
+    y = random.nextDouble() * screenSize.height;
+    speedX = random.nextDouble() * (isStrongWind ? 4 : 2) + 1;
+    speedY = random.nextDouble() - 0.5;
+    size = random.nextDouble() * 4 + 2;
+    opacity = random.nextDouble() * 0.5 + 0.2;
+  }
+
+  @override
+  void update() {
+    x += speedX;
+    y += speedY;
+    if (x > screenSize.width) x = 0;
+    if (y > screenSize.height) {
+      y = Random().nextDouble() * screenSize.height;
+    }
+  }
+}
+
+@protected
+class WindLine extends Particle {
+  final Size screenSize;
+  final bool isStrongWind;
+  late double x, y;
+  late double length;
+  late double speedX;
+  late double opacity;
+  late double waveAmplitude;
+
+  WindLine(this.screenSize, {this.isStrongWind = false}) {
+    reset();
+  }
+
+  void reset() {
+    final random = Random();
+    x = random.nextDouble() * screenSize.width;
+    y = random.nextDouble() * screenSize.height;
+    length = random.nextDouble() * 50 + 20;
+    speedX = random.nextDouble() * (isStrongWind ? 6 : 3) + 2;
+    opacity = random.nextDouble() * 0.3 + 0.2;
+    waveAmplitude = random.nextDouble() * 1;
+  }
+
+  @override
+  void update() {
+    x += speedX;
+    if (x > screenSize.width) x = 0;
+  }
+}
+

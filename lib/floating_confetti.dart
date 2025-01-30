@@ -22,6 +22,10 @@ class _FloatingConfettiState extends State<FloatingConfetti>
   late AnimationController _controller;
   final List<Particle> _particles = [];
 
+  Size get screenSize {
+    return MediaQuery.sizeOf(context);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -38,7 +42,6 @@ class _FloatingConfettiState extends State<FloatingConfetti>
       });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final screenSize = MediaQuery.sizeOf(context);
       for (int i = 0; i < widget.totalParticles; i++) {
         _particles.add(FloatingParticle(widget.colors, screenSize));
       }

@@ -1,5 +1,9 @@
 All notable changes to this project will be documented in this file.
 
+## [0.0.3] - 2025-01-30
+### Changed
+- Added wind confetti.
+
 ## [0.0.2] - 2025-01-28
 ### Changed
 - Refactored confetti class names.

@@ -26,6 +26,10 @@ class _FireworksConfettiState extends State<FireworksConfetti>
   late AnimationController _controller;
   final List<Particle> _particles = [];
 
+  Size get screenSize {
+    return MediaQuery.sizeOf(context);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -43,7 +47,6 @@ class _FireworksConfettiState extends State<FireworksConfetti>
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       _particles.clear();
-      final screenSize = MediaQuery.sizeOf(context);
       if (widget.positions != null && widget.positions!.isNotEmpty) {
         for (int i = 0; i < widget.positions!.length; i++) {
           final position = widget.positions![i];
