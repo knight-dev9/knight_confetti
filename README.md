@@ -1,6 +1,9 @@
 ## 🎉 Flutter Confetti Effects
 A versatile Flutter package that brings excitement and fun to your app with seven unique types of confetti animations! Perfect for celebrations, achievements, or simply adding a touch of visual delight to your app.
 
+## 🎬 Preview Demo
+![Video Demo](assets/demo.gif)
+
 ## 🌟 Features and Usages
 Add confetti animations to your Flutter app with minimal setup. Customize colors, particle sizes, and more to suit your app's style.
 This package provides seven ready-to-use confetti pages, each designed for different scenarios:
@@ -85,4 +88,4 @@ WindConfetti(
 ```
 
 ## Author
-This package is developed by Atirek Pothiwala.
+This package is developed by **Atirek Pothiwala**.
