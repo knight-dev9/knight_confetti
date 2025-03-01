@@ -89,3 +89,9 @@ WindConfetti(
 
 ## Author
 This package is developed by **Atirek Pothiwala**.
+<p>
+  <a href="https://atirek-pothiwala.github.io/portfolio">
+    Visit My Portfolio
+    <img src="assets/portfolio.png" alt="Portfolio" width="25" align="center" hspace="5">
+  </a>
+</p>
