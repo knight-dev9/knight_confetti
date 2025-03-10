@@ -1,5 +1,9 @@
 All notable changes to this project will be documented in this file.
 
+## [0.0.5] - 2025-03-11
+### Changed
+- Updated demo preview.
+
 ## [0.0.4] - 2025-02-28
 ### Changed
 - Added demo preview.

@@ -1,6 +1,6 @@
 name: knight_confetti
 description: "A versatile Flutter package that brings excitement and fun to your app with seven unique types of confetti animations! Perfect for celebrations, achievements, or simply adding a touch of visual delight to your app."
-version: 0.0.4
+version: 0.0.5
 repository: https://github.com/knight-dev9/knight_confetti
 
 environment:
